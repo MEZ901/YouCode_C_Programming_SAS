@@ -1,6 +1,6 @@
-/*Challenge 6 : Palindrome
+/*Challenge 6: Palindrome
 
-Un mot est un palindrome s'il s'écrit de la même façon si on l'écrit à l'envers. "kayak" et "laval" sont des palindromes. Ecrire un programme C qui permet de déterminer si un mot, considéré comme un tableau de caractères, est un palindrome ou non. On considérera que le tableau, d'au plus 50 éléments, est initialisé dans le programme C*/
+A word is a palindrome if it is spelled the same if written backwards. "kayak" and "laval" are palindromes. Write a C program that determines whether a word, considered as an array of characters, is a palindrome or not. We will consider that the array, of at most 50 elements, is initialized in the C program*/
 
 #include <stdio.h>
 #include <stdlib.h>
