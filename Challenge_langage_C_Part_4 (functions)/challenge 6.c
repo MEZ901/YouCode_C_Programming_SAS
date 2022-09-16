@@ -20,7 +20,7 @@ void bubbleSort(int n)
             }
         }
     }
-    printf("the after implementing bubble sort: ");
+    printf("the elements after implementing bubble sort: ");
     for(x=0; x<n; x++) printf("%d ", num[x]);
 }
 
