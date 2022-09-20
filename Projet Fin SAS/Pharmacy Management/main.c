@@ -12,12 +12,22 @@ typedef struct{
     float price;
 }Product;
 
+typedef struct{
+    int code;
+    char name[50];
+    float priceTTC;
+    int date[3];
+    int time[2];
+}Book;
+
 /*-------------global variables section-------------*/
 
 int i;
 int counter = 0;
+int bookCounter = 0;
 Product product[MAX];
 Product temp[1];
+Book book[MAX];
 
 /*-------------functions section-------------*/
 
@@ -57,7 +67,7 @@ int main()
             case 1:
                 newProduct();
                 system("cls");
-                printf("\n\n\tyour changes has been saved successfully\n\n"); sleep(2);
+                printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
                 system("cls");
                 break;
             case 2:
@@ -76,6 +86,9 @@ int main()
                 break;
             case 3:
                 buyProduct();
+                system("cls");
+                printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
+                system("cls");
                 break;
             case 4:
                 search();
@@ -196,13 +209,27 @@ void sortProducts(){
 
 
 void buyProduct(){
-    int c;
+    int c, b;
+    system("cls");
     printf("enter the code of product: "); scanf("%d", &c);
     for(i=0; i<counter; i++){
-        if(product[i].code == c)
-            printf("name: %s  | price including TTC: %.2f  | quantity: %d", product[i].name, product[i].price + (product[i].price * 0.15), product[i].quantity);
+        if(product[i].code == c){
+            printf("name: %s  | price including TTC: %.2f  | quantity: %d\n", product[i].name, product[i].price + (product[i].price * 0.15), product[i].quantity);
+            break;
+        }
     }
+    printf("enter the new quantity: "); scanf("%d", &b);
+    product[i].quantity = b;
+    printf("enter the current date of selling:\n");
+    printf("the day: "); scanf("%d", &book[bookCounter].date[0]);
+    printf("the mounth: "); scanf("%d", &book[bookCounter].date[1]);
+    printf("the year: "); scanf("%d", &book[bookCounter].date[2]);
+    printf("now enter the current time of selling:\n");
+    printf("the hour: "); scanf("%d", &book[bookCounter].time[0]);
+    printf("the minute: "); scanf("%d", &book[bookCounter].time[1]);
 
+    strcpy(book[bookCounter].name, product[i].name);
+    book[bookCounter].priceTTC = product[i].price + (product[i].price * 0.15);
 }
 
 
