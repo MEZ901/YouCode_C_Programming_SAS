@@ -39,6 +39,10 @@ void storage();
 void deleteProduct();
 void registerBook();
 void salesStatistics();
+float totalPrice();
+float averagePrice();
+float maxPrice();
+float minPrice();
 
 /*-------------the main function-------------*/
 
@@ -302,7 +306,7 @@ void deleteProduct(){
         if(product[i].code == d){
             printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
             printf("are you sure you want to delete this product (y/n): "); scanf("%s", &c);
-            if(c == 'y'){
+            if(c == 'y' || c == 'Y'){
                 for(j=i; j<counter; j++){
                     product[j] = product[j+1];
                 }
@@ -310,7 +314,7 @@ void deleteProduct(){
                 system("cls");
                 printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
                 system("cls");
-            } else if(c == 'n'){
+            } else if(c == 'n' || c == 'N'){
                 printf("\nPress any key to continue.");
                 getch();
                 system("cls");
@@ -340,7 +344,47 @@ void registerBook(){
 
 
 void salesStatistics(){
-
+    system("cls");
+    printf("the total prices of products sold in the current day is %.2f dh\n", totalPrice());
+    printf("the average price of products sold on the current day is %.2f dh\n", averagePrice());
+    printf("the Max price of products sold on the current day is %.2f dh\n", maxPrice());
+    printf("the Min price of products sold in the current day is %.2f dh\n", minPrice());
+    printf("\nPress any key to continue.");
+    getch();
+    system("cls");
 }
 
 
+float totalPrice(){
+    float sum;
+    for(i=0; i<bookCounter; i++){
+        sum = sum + book[i].priceTTC;
+    }
+    return sum;
+}
+
+
+float averagePrice(){
+    float av;
+    av = totalPrice()/(bookCounter);
+    return av;
+}
+
+
+float maxPrice(){
+    float m = 0;
+    for(i=0; i<bookCounter; i++){
+        if(m<book[i].priceTTC)
+            m = book[i].priceTTC;
+    }
+    return m;
+}
+
+float minPrice(){
+    float n = 0;
+    for(i=0; i<bookCounter; i++){
+        if(n>book[i].priceTTC || n==0)
+            n = book[i].priceTTC;
+    }
+    return n;
+}
