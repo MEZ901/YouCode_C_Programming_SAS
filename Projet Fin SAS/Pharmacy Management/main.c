@@ -76,19 +76,21 @@ int main()
                 printf("\n2. back to menu\n");
                 do{
                     scanf("%d", &q);
-                    if(q==1) sortProducts();
-                    else if(q==2) break;
+                    if(q==1){
+                        sortProducts();
+                        printf("\n\nPress any key to continue.");
+                        getch();
+                        system("cls");
+                    }
+                    else if(q==2){
+                        system("cls");
+                        break;
+                    }
                     else printf("\nSomething went wrong. Please try again\n");
                 }while(q!=1 && q!=2);
-                printf("\n\nPress any key to continue.");
-                getch();
-                system("cls");
                 break;
             case 3:
                 buyProduct();
-                system("cls");
-                printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
-                system("cls");
                 break;
             case 4:
                 search();
@@ -107,6 +109,9 @@ int main()
                 break;
             case 7:
                 registerBook();
+                printf("\nPress any key to continue.");
+                getch();
+                system("cls");
                 break;
             case 8:
                 salesStatistics();
@@ -210,26 +215,40 @@ void sortProducts(){
 
 void buyProduct(){
     int c, b;
+    int t=0;
     system("cls");
     printf("enter the code of product: "); scanf("%d", &c);
     for(i=0; i<counter; i++){
         if(product[i].code == c){
             printf("name: %s  | price including TTC: %.2f  | quantity: %d\n", product[i].name, product[i].price + (product[i].price * 0.15), product[i].quantity);
+            t=1;
             break;
         }
     }
-    printf("enter the new quantity: "); scanf("%d", &b);
-    product[i].quantity = b;
-    printf("enter the current date of selling:\n");
-    printf("the day: "); scanf("%d", &book[bookCounter].date[0]);
-    printf("the mounth: "); scanf("%d", &book[bookCounter].date[1]);
-    printf("the year: "); scanf("%d", &book[bookCounter].date[2]);
-    printf("now enter the current time of selling:\n");
-    printf("the hour: "); scanf("%d", &book[bookCounter].time[0]);
-    printf("the minute: "); scanf("%d", &book[bookCounter].time[1]);
+    if(t==1){
+        printf("enter the new quantity: "); scanf("%d", &b);
+        product[i].quantity = b;
+        printf("enter the current date of selling:\n");
+        printf("the day: "); scanf("%d", &book[bookCounter].date[0]);
+        printf("the mounth: "); scanf("%d", &book[bookCounter].date[1]);
+        printf("the year: "); scanf("%d", &book[bookCounter].date[2]);
+        printf("now enter the current time of selling:\n");
+        printf("the hour: "); scanf("%d", &book[bookCounter].time[0]);
+        printf("the minute: "); scanf("%d", &book[bookCounter].time[1]);
 
-    strcpy(book[bookCounter].name, product[i].name);
-    book[bookCounter].priceTTC = product[i].price + (product[i].price * 0.15);
+        strcpy(book[bookCounter].name, product[i].name);
+        book[bookCounter].priceTTC = product[i].price + (product[i].price * 0.15);
+        bookCounter++;
+        system("cls");
+        printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
+        system("cls");
+    }else{
+        printf("\nthe code doesn't match any product\n");
+        printf("\nPress any key to continue.");
+        getch();
+        system("cls");
+
+    }
 }
 
 
@@ -280,7 +299,15 @@ void deleteProduct(){
 
 
 void registerBook(){
-
+    system("cls");
+    printf("\n\n\n\t \t product purchased  \n");
+    printf("--------------------------------------------------------\n");
+    printf("   Name    |  Price including TTC  |    date    |    time   \n");
+    printf("------------------------------------------------------------\n");
+    for(i=0; i<bookCounter; i++){
+        printf("    %s    |       %.2f       |    %d/%d/%d    |    %d:%d    \n", book[i].name, book[i].priceTTC, book[i].date[0], book[i].date[1], book[i].date[2], book[i].time[0], book[i].time[1]);
+        printf("===============================================================================\n");
+    }
 }
 
 
