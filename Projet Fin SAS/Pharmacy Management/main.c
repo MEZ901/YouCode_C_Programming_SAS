@@ -40,6 +40,7 @@ void storage();
 void deleteProduct();
 void registerBook();
 void salesStatistics();
+float priceTTC();
 float totalPrice();
 float averagePrice();
 float maxPrice();
@@ -146,7 +147,7 @@ void displayProducts(){
     printf("\t \tSerial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
     printf("\t \t-----------------------------------------------------------------------------------\n");
     for(i = 0; i<counter; i++){
-    printf("\t \t      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+    printf("\t \t      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
     printf("\t \t====================================================================================\n");
     }
 }
@@ -197,7 +198,7 @@ void sortProducts(){
             printf("\t \tSerial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
             printf("\t \t-----------------------------------------------------------------------------------\n");
             for(i = 0; i<counter; i++){
-            printf("\t \t      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+            printf("\t \t      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
             printf("\t \t===================================================================================\n");
             }
         } else if(choice == 2){
@@ -215,7 +216,7 @@ void sortProducts(){
             printf("\t \tSerial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
             printf("\t \t-----------------------------------------------------------------------------------\n");
             for(i = 0; i<counter; i++){
-            printf("\t \t      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+            printf("\t \t      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
             printf("\t \t===================================================================================\n");
             }
         } else printf("\t \t \t \t \tSomething went wrong. Please try again\n");
@@ -230,7 +231,7 @@ void buyProduct(){
     printf("\n\n\n \t \t \t \t \tenter the code of product: "); scanf("%d", &c);
     for(i=0; i<counter; i++){
         if(product[i].code == c){
-            printf("\n \t \t \t \tname: %s  | price including TTC: %.2f  | quantity: %d\n", product[i].name, product[i].price + (product[i].price * 0.15), product[i].quantity);
+            printf("\n \t \t \t \tname: %s  | price including TTC: %.2f  | quantity: %d\n", product[i].name, priceTTC(), product[i].quantity);
             t=1;
             break;
         }
@@ -277,7 +278,7 @@ void search(){
         printf("\n\n\n\n\n\n\n\n\n\n\n \t \t \t \t \t \tenter the code: "); scanf("%d", &s);
         for(i=0; i<counter; i++){
             if(s == product[i].code){
-                printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+                printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
                 t = 1;
             }
         }
@@ -287,7 +288,7 @@ void search(){
         printf("\n\n\n\n\n\n\n\n\n\n\n \t \t \t \t \t \tenter the quantity: "); scanf("%d", &s);
         for(i=0; i<counter; i++){
             if(s == product[i].quantity)
-                printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+                printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
         }
     }
 }
@@ -299,7 +300,7 @@ void storage(){
     for(i=0; i<counter; i++){
         if(product[i].quantity<3){
             printf("\n\n \t \t \t \t \tthe products whose quantity is less than 3:\n");
-            printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+            printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
             t=1;
         }
     }
@@ -314,7 +315,7 @@ void deleteProduct(){
     printf("\n\n \t \t \t \tenter the code of product that you want to delete: "); scanf("%d", &d);
     for(i=0; i<counter; i++){
         if(product[i].code == d){
-            printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+            printf("\n \t name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, priceTTC());
             printf("\t \t \t \tare you sure you want to delete this product (y/n): "); scanf("%s", &c);
             if(c == 'y' || c == 'Y'){
                 for(j=i; j<counter; j++){
@@ -363,6 +364,12 @@ void salesStatistics(){
     printf("\n\n\t \t \t \t \t \tPress any key to continue.");
     getch();
     system("cls");
+}
+
+float priceTTC(){
+    float TTC;
+    TTC = product[i].price + (product[i].price * 0.15);
+    return TTC;
 }
 
 
