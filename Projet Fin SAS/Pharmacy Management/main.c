@@ -13,7 +13,6 @@ typedef struct{
 }Product;
 
 typedef struct{
-    int code;
     char name[50];
     float priceTTC;
     int date[3];
@@ -182,7 +181,7 @@ void sortProducts(){
                     }
                 }
             }
-            printf("\n\n\n\t \t sort products in descending order of name  \n");
+            printf("\n\n\n\t \t sort products in ascending alphabetical order of name  \n");
             printf("-----------------------------------------------------------------------------------\n");
             printf("Serial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
             printf("-----------------------------------------------------------------------------------\n");
@@ -200,7 +199,7 @@ void sortProducts(){
                     }
                 }
             }
-            printf("\n\n\n\t \t products in ascending alphabetical order of price  \n");
+            printf("\n\n\n\t \t products in descending order of price  \n");
             printf("-----------------------------------------------------------------------------------\n");
             printf("Serial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
             printf("-----------------------------------------------------------------------------------\n");
@@ -281,6 +280,7 @@ void search(){
 
 
 void storage(){
+    system("cls");
     int t=0;
     for(i=0; i<counter; i++){
         if(product[i].quantity<3){
@@ -294,7 +294,35 @@ void storage(){
 
 
 void deleteProduct(){
+    system("cls");
+    int d, j;
+    char c;
+    printf("enter the code of product that you want to delete: "); scanf("%d", &d);
+    for(i=0; i<counter; i++){
+        if(product[i].code == d){
+            printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
+            printf("are you sure you want to delete this product (y/n): "); scanf("%s", &c);
+            if(c == 'y'){
+                for(j=i; j<counter; j++){
+                    product[j] = product[j+1];
+                }
+                counter--;
+                system("cls");
+                printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
+                system("cls");
+            } else if(c == 'n'){
+                printf("\nPress any key to continue.");
+                getch();
+                system("cls");
+            }
 
+        }else{
+            printf("\nthe code doesn't match any product\n");
+            printf("\nPress any key to continue.");
+            getch();
+            system("cls");
+        }
+    }
 }
 
 
