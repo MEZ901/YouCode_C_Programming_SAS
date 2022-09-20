@@ -24,7 +24,7 @@ Product temp[1];
 void newProduct();
 void displayProducts();
 void sortProducts();
-void updateQuantity();
+void buyProduct();
 void search();
 void storage();
 void deleteProduct();
@@ -43,7 +43,7 @@ int main()
         printf("\n--------MENU--------\n");
         printf("\n1. Add new product");
         printf("\n2. Display products");
-        printf("\n3. Update the quantity");
+        printf("\n3. Buy product");
         printf("\n4. Search");
         printf("\n5. Storage");
         printf("\n6. Delete");
@@ -72,9 +72,10 @@ int main()
                 }while(q!=1 && q!=2);
                 printf("\n\nPress any key to continue.");
                 getch();
+                system("cls");
                 break;
             case 3:
-                updateQuantity();
+                buyProduct();
                 break;
             case 4:
                 search();
@@ -137,7 +138,7 @@ void displayProducts(){
     printf("Serial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
     printf("-----------------------------------------------------------------------------------\n");
     for(i = 0; i<counter; i++){
-    printf("      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price+(product[i].price*0.15));
+    printf("      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
     printf("==========================================================================================\n");
     }
 }
@@ -168,7 +169,7 @@ void sortProducts(){
             printf("Serial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
             printf("-----------------------------------------------------------------------------------\n");
             for(i = 0; i<counter; i++){
-            printf("      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price+(product[i].price*0.15));
+            printf("      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
             printf("==========================================================================================\n");
             }
         } else if(choice == 2){
@@ -186,7 +187,7 @@ void sortProducts(){
             printf("Serial Number  |  Name  |  Code  |  Quantity  |    Price    |  Price including TTC \n");
             printf("-----------------------------------------------------------------------------------\n");
             for(i = 0; i<counter; i++){
-            printf("      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price+(product[i].price*0.15));
+            printf("      %d       |   %s   |   %d   |     %d     |    %.2f dh  |     %.2f dh\n", i+1, product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
             printf("==========================================================================================\n");
             }
         } else printf("Something went wrong. Please try again\n");
@@ -194,7 +195,13 @@ void sortProducts(){
 }
 
 
-void updateQuantity(){
+void buyProduct(){
+    int c;
+    printf("enter the code of product: "); scanf("%d", &c);
+    for(i=0; i<counter; i++){
+        if(product[i].code == c)
+            printf("name: %s  | price including TTC: %.2f  | quantity: %d", product[i].name, product[i].price + (product[i].price * 0.15), product[i].quantity);
+    }
 
 }
 
@@ -214,14 +221,14 @@ void search(){
         printf("enter the code: "); scanf("%d", &s);
         for(i=0; i<counter; i++){
             if(s == product[i].code)
-                printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price+(product[i].price*0.15));
+                printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
         }
     }else{
         system("cls");
         printf("enter the quantity: "); scanf("%d", &s);
         for(i=0; i<counter; i++){
             if(s == product[i].quantity)
-                printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price+(product[i].price*0.15));
+                printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
         }
     }
 }
@@ -232,11 +239,11 @@ void storage(){
     for(i=0; i<counter; i++){
         if(product[i].quantity<3){
             printf("\nthe products whose quantity is less than 3:\n");
-            printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price+(product[i].price*0.15));
+            printf(" name:   %s   | code:   %d   | quantity:   %d     | price:   %.2f dh  | Price including TTC:   %.2f dh\n", product[i].name, product[i].code, product[i].quantity, product[i].price, product[i].price + (product[i].price * 0.15));
             t=1;
         }
     }
-    if(t=0) printf("there's no products that whose quantity is less than 3");
+    if(t==0) printf("\nthere's no products that whose quantity is less than 3");
 }
 
 
@@ -253,3 +260,5 @@ void registerBook(){
 void salesStatistics(){
 
 }
+
+
