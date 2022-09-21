@@ -15,6 +15,8 @@ typedef struct{
 typedef struct{
     char name[50];
     float priceTTC;
+    float totalP;
+    int soldCount;
     int date[3];
     int time[2];
 }Book;
@@ -225,7 +227,7 @@ void sortProducts(){
 
 
 void buyProduct(){
-    int c, b;
+    int c, oldQuantity, soldCount;
     int t=0;
     system("cls");
     printf("\n\n\n \t \t \t \t \tenter the code of product: "); scanf("%d", &c);
@@ -237,19 +239,25 @@ void buyProduct(){
         }
     }
     if(t==1){
-        printf("\n \t \t \t \tenter the new quantity: "); scanf("%d", &b);
-        product[i].quantity = b;
-        printf("\n \t \t \t \tenter the current date of selling:\n");
-        printf(" \t \t \t \tthe day: "); scanf("%d", &book[bookCounter].date[0]);
-        printf(" \t \t \t \tthe mounth: "); scanf("%d", &book[bookCounter].date[1]);
-        printf(" \t \t \t \tthe year: "); scanf("%d", &book[bookCounter].date[2]);
-        printf("\n  \t \t \t \tnow enter the current time of selling:\n");
-        printf(" \t \t \t \tthe hour: "); scanf("%d", &book[bookCounter].time[0]);
-        printf(" \t \t \t \tthe minute: "); scanf("%d", &book[bookCounter].time[1]);
+        oldQuantity = product[i].quantity;
+        printf("\n \t \t \t \tenter the new quantity of product: "); scanf("%d", &product[i].quantity);
+        if(oldQuantity>product[i].quantity){
+            printf("\n \t \t \t \tenter the current date of selling:\n");
+            printf(" \t \t \t \tthe day: "); scanf("%d", &book[bookCounter].date[0]);
+            printf(" \t \t \t \tthe mounth: "); scanf("%d", &book[bookCounter].date[1]);
+            printf(" \t \t \t \tthe year: "); scanf("%d", &book[bookCounter].date[2]);
+            printf("\n  \t \t \t \tnow enter the current time of selling:\n");
+            printf(" \t \t \t \tthe hour: "); scanf("%d", &book[bookCounter].time[0]);
+            printf(" \t \t \t \tthe minute: "); scanf("%d", &book[bookCounter].time[1]);
+            book[bookCounter].soldCount = oldQuantity - product[i].quantity;
+            strcpy(book[bookCounter].name, product[i].name);
+            book[bookCounter].priceTTC = priceTTC();
+            book[bookCounter].totalP = book[bookCounter].soldCount * book[bookCounter].priceTTC;
+            bookCounter++;
+        }
 
-        strcpy(book[bookCounter].name, product[i].name);
-        book[bookCounter].priceTTC = product[i].price + (product[i].price * 0.15);
-        bookCounter++;
+
+
         system("cls");
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tyour changes has been saved successfully\n\n"); sleep(2);
         system("cls");
@@ -345,12 +353,12 @@ void deleteProduct(){
 void registerBook(){
     system("cls");
     printf("\n\n\n\t \t \t \t \t \t product purchased  \n");
-    printf("\t \t \t \t--------------------------------------------------------\n");
-    printf("\t \t \t \t   Name    |  Price including TTC  |    date    |    time   \n");
-    printf("\t \t \t \t--------------------------------------------------------\n");
+    printf("\t \t \t---------------------------------------------------------------------------\n");
+    printf("\t \t \t   Name    |  Price including TTC  |    pieces    |     date     |    time   \n");
+    printf("\t \t \t---------------------------------------------------------------------------\n");
     for(i=0; i<bookCounter; i++){
-        printf("\t \t \t \t    %s    |       %.2f       |    %d/%d/%d    |    %d:%d    \n", book[i].name, book[i].priceTTC, book[i].date[0], book[i].date[1], book[i].date[2], book[i].time[0], book[i].time[1]);
-        printf("\t \t \t \t========================================================\n");
+        printf("\t \t \t    %s    |         %.2f         |      %d      |    %d/%d/%d    |    %d:%d    \n", book[i].name, book[i].priceTTC, book[i].soldCount, book[i].date[0], book[i].date[1], book[i].date[2], book[i].time[0], book[i].time[1]);
+    printf("\t \t \t===========================================================================\n");
     }
 }
 
@@ -376,7 +384,7 @@ float priceTTC(){
 float totalPrice(){
     float sum;
     for(i=0; i<bookCounter; i++){
-        sum = sum + book[i].priceTTC;
+        sum = sum + book[i].totalP;
     }
     return sum;
 }
