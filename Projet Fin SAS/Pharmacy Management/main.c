@@ -26,6 +26,7 @@ typedef struct{
 int i;
 int counter = 0;
 int bookCounter = 0;
+int totalPiecesPurchased = 0;
 Product product[MAX];
 Product temp[1];
 Book book[MAX];
@@ -253,6 +254,7 @@ void buyProduct(){
             strcpy(book[bookCounter].name, product[i].name);
             book[bookCounter].priceTTC = priceTTC();
             book[bookCounter].totalP = book[bookCounter].soldCount * book[bookCounter].priceTTC;
+            totalPiecesPurchased += book[bookCounter].soldCount;
             bookCounter++;
         }
 
@@ -365,7 +367,8 @@ void registerBook(){
 
 void salesStatistics(){
     system("cls");
-    printf("\n\n\n\n\n\n\n\n\n \t \t \t \tthe total prices of products sold in the current day is %.2f dh\n", totalPrice());
+    printf("\n\n\n\n\n\n\n\n\n \t \t \t \t%d products sold this day.\n", totalPiecesPurchased);
+    printf(" \t \t \t \tthe total prices of products sold in the current day is %.2f dh\n", totalPrice());
     printf(" \t \t \t \tthe average price of products sold on the current day is %.2f dh\n", averagePrice());
     printf(" \t \t \t \tthe Max price of products sold on the current day is %.2f dh\n", maxPrice());
     printf(" \t \t \t \tthe Min price of products sold in the current day is %.2f dh\n", minPrice());
@@ -373,6 +376,7 @@ void salesStatistics(){
     getch();
     system("cls");
 }
+
 
 float priceTTC(){
     float TTC;
@@ -392,7 +396,7 @@ float totalPrice(){
 
 float averagePrice(){
     float av;
-    av = totalPrice()/(bookCounter);
+    av = totalPrice()/(totalPiecesPurchased);
     return av;
 }
 
@@ -405,6 +409,7 @@ float maxPrice(){
     }
     return m;
 }
+
 
 float minPrice(){
     float n = 0;
