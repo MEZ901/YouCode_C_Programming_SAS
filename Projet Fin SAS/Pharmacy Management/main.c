@@ -134,7 +134,14 @@ void newProduct(){
     for(i=0; i<n; i++){
         printf("\t \t______________________________________________________________");
         printf("\n\n \t \tEnter the following informations of the product number %d\n\n", i+1);
+        code:
         printf(" \t \tEnter the code of product: "); scanf("%d", &product[counter].code);
+        for(i=0; i<counter; i++){
+            if(product[i].code == product[counter].code){
+                printf(" \t \tError, this code already exist\n");
+                goto code;
+            }
+        }
         printf(" \t \tEnter the name of product: "); scanf("%s", &product[counter].name);
         printf(" \t \tEnter the quantity of product: "); scanf("%d", &product[counter].quantity);
         printf(" \t \tEnter the price of product: "); scanf("%f", &product[counter].price);
@@ -358,12 +365,12 @@ void deleteProduct(){
 void registerBook(){
     system("cls");
     printf("\n\n\n\t \t \t \t product purchased  \n");
-    printf("\t---------------------------------------------------------------------------\n");
-    printf("\t   Name    |  Price including TTC  |    pieces    |     date     |    time   \n");
-    printf("\t---------------------------------------------------------------------------\n");
+    printf("---------------------------------------------------------------------------\n");
+    printf("   Name    |  Price including TTC  |    pieces    |     date     |    time   \n");
+    printf("---------------------------------------------------------------------------\n");
     for(i=0; i<bookCounter; i++){
-        printf("\t    %s    |         %.2f         |      %d      |    %d/%d/%d    |    %d:%d    \n", book[i].name, book[i].priceTTC, book[i].soldCount, book[i].date[0], book[i].date[1], book[i].date[2], book[i].time[0], book[i].time[1]);
-    printf("\t===========================================================================\n");
+        printf("    %s    |         %.2f         |      %d      |    %d/%d/%d    |    %d:%d    \n", book[i].name, book[i].priceTTC, book[i].soldCount, book[i].date[0], book[i].date[1], book[i].date[2], book[i].time[0], book[i].time[1]);
+    printf("===========================================================================\n");
     }
 }
 
